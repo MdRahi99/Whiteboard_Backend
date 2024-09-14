@@ -1,18 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const drawingRoutes = require('./routes/drawingRoutes');
 const errorHandler = require('./middlewares/errorMiddleware');
+const cors = require('cors');
 
 dotenv.config();
 connectDB();
 
 const app = express();
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 app.use('/api', drawingRoutes);
-
-// Error handling
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
